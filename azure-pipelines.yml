@@ -19,5 +19,5 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact'
   inputs:
-    PathtoPublish: '$(build.artifactstagingdirectory)\WebApp'
+    PathtoPublish: '$(build.artifactstagingdirectory)\bin\Release\netcoreapp2.1\win10-x64'
     ArtifactName: tokengenerator
