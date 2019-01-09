@@ -1,0 +1,7 @@
+# Output folders
+bin/
+obj/
+
+# IDE
+.vscode/
+.vs/
