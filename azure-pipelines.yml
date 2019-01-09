@@ -35,9 +35,13 @@ steps:
     $resourceId = '$(HearingsApiResourceId)'
 
     Set-Location $(Build.SourcesDirectory)\bin\Release\netcoreapp2.1\win10-x64\publish
-    $token = & ADTokenGenerator.exe $authority $clientId $clientSecret $resourceId
+    $token = & .\ADTokenGenerator.exe $authority $clientId $clientSecret $resourceId
 
+    Write-Output "----------------------------"
+    Write-Output ""
     Write-Output $token
+    Write-Output ""
+    Write-Output "----------------------------"
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact'
