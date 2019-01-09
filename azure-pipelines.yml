@@ -3,6 +3,7 @@
 # Add steps that run tests, create a NuGet package, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
+
 trigger:
 - master
 
@@ -11,10 +12,31 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  azureSubscription: 'Reform-CFT-VH-Dev'
+  KeyVaultName: 'vhhearingsapiatpreview'
+  SecretsFilter: 'TenantId,HearingsApiResourceId,clientId,ClientSecret'
 
 steps:
 - script: dotnet publish -c $(buildConfiguration) -r win10-x64
   displayName: 'dotnet build $(buildConfiguration)'
+
+- task: AzureKeyVault@1
+  displayName: 'Azure Key Vault: ${{ parameters.KeyVaultName }}'
+  inputs:
+    azureSubscription: '$(azureSubscription)'
+    KeyVaultName: '$(KeyVaultName)'
+    SecretsFilter: '$(SecretsFilter)'
+
+- powershell: |
+    $tokenGenerator = (Get-ChildItem -Recurse ADTokenGenerator.exe).fullname
+    $authority = 'https://login.microsoftonline.com/' + '$(TenantId)'
+    $clientId = '$(clientId)'
+    $clientSecret = '$(ClientSecret)'
+    $resourceId = '$(HearingsApiResourceId)'
+
+    $token = & $tokenGenerator $authority $clientId $clientSecret $resourceId
+
+    Write-Output $token
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact'
