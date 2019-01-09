@@ -33,7 +33,7 @@ steps:
     $clientSecret = '$(ClientSecret)'
     $resourceId = '$(HearingsApiResourceId)'
 
-    Set-Location ((Get-ChildItem -Recurse ADTokenGenerator.exe).directoryname)
+    Set-Location ((Get-ChildItem -Recurse ADTokenGenerator.exe).directoryname).ToString()
     $token = & ADTokenGenerator.exe $authority $clientId $clientSecret $resourceId
 
     Write-Output $token
