@@ -28,13 +28,13 @@ steps:
     SecretsFilter: '$(SecretsFilter)'
 
 - powershell: |
-    $tokenGenerator = (Get-ChildItem -Recurse ADTokenGenerator.exe).fullname
     $authority = 'https://login.microsoftonline.com/' + '$(TenantId)'
     $clientId = '$(clientId)'
     $clientSecret = '$(ClientSecret)'
     $resourceId = '$(HearingsApiResourceId)'
 
-    $token = & $tokenGenerator $authority $clientId $clientSecret $resourceId
+    Set-Location ((Get-ChildItem -Recurse ADTokenGenerator.exe).directoryname)
+    $token = & ADTokenGenerator.exe $authority $clientId $clientSecret $resourceId
 
     Write-Output $token
 
