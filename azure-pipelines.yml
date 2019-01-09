@@ -12,8 +12,8 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  azureSubscription: 'Reform-CFT-VH-Dev'
-  KeyVaultName: 'vhhearingsapiatpreview'
+  azureSubscription: 'DCD-CFT-VH-Pilot'
+  KeyVaultName: 'vhhearingsapiatpilot'
   SecretsFilter: 'TenantId,HearingsApiResourceId,clientId,ClientSecret'
 
 steps:
@@ -42,9 +42,3 @@ steps:
     Write-Output $token
     Write-Output ""
     Write-Output "----------------------------"
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact'
-  inputs:
-    PathtoPublish: '$(Build.SourcesDirectory)\bin\Release\netcoreapp2.1\win10-x64'
-    ArtifactName: tokengenerator
