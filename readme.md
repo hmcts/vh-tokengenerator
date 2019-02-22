@@ -12,21 +12,8 @@ ADTokenGenerator.exe https://login.microsoftonline.com/fd1ce6e3-fd2a-4742-9589-2
 ```
 
 ## Building/running
-The tool is written in .Net Core 2.1.
+The tool is written in .Net Core 2.1 so it can be run using the `dotnet run` in both Windows and MacOS.
 
-#### MacOs
 ```
 $ dotnet run <authority> <clientId> <clientSecret> <resourceId>
-```
-
-#### Windows
-
-Building:
-```
-C:\ADTokenGenerator\dotnet publish -c Release -r win10-x64
-```
-
-Running:
-```
-C:\ADTokenGenerator\bin\Release\netcoreapp2.1\win10-x64\publish\ADTokenGenerator.exe
 ```
